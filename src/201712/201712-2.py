@@ -39,6 +39,7 @@
 　　对于所有评测用例，1 ≤ n ≤ 1000，1 ≤ k ≤ 9。
 '''
 
+'''
 #以下提交20分：
 L = list(map(int,input().split()))
 n, k = L[0], L[1]
@@ -54,3 +55,27 @@ while len(li) > 1:
             c += 1
     li = li1[:]
 print(li[0]+1)
+'''
+
+#以下提交是100分：
+L = list(input().split())
+n, k = int(L[0]), int(L[1])
+li = list(range(1, n + 1))
+c = 1
+while len(li) > 1:
+    li1 = []
+
+    # 之前没有考虑到k=1
+    if k == 1:
+        li1.append(li[-1])
+        li = li1[:]
+        break
+    for i in range(len(li)):
+        if (c % k == 0) or (c % 10 == k):
+            c += 1
+        else:
+            li1.append(li[i])
+            c += 1
+    li = li1[:]
+
+print(li[0])
