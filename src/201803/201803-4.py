@@ -56,4 +56,67 @@
 　　对于所有评测用例，1 ≤ T ≤ 5。
 '''
 
+'''
+#以下提交后得15分：
+num = int(input())
+content = []
+for i in range(num * 3):
+    content.append(list(map(int, input().split())))
 
+def get_li(li):
+    i = 0
+    narray = []
+    for i in range(num):
+        narray.append([])
+        j = i * 3
+        for j in range(j, j + 3):
+            narray[i].append(li[j])
+    return narray
+
+def judge(li, u=1):
+    for i in range(3):
+        if li[i][0] == li[i][1] == li[i][2] == u:
+            return True
+    for i in range(3):
+        if li[0][i] == li[1][i] == li[2][i] == u:
+            return True
+    if li[0][0] == li[1][1] == li[2][2] == u:
+        return True
+    if li[2][0] == li[1][1] == li[0][1] == u:
+        return True
+    return False
+
+def space(li, u=0):
+    count = 0
+    for i in range(3):
+        for j in range(3):
+            if li[i][j] == u:
+                count += 1
+    return count
+
+def dfs(li, u):
+    max1, min1 = -10, 10
+    if (space(li)) >= 7: return 0
+    if u == 1 and judge(li, 2):
+        return -space(li) - 1
+    if u == 2 and judge(li, 1):
+        return space(li) + 1
+    if (space(li) == 0): return 0
+    
+    for i in range(3):
+        for j in range(3):
+            if li[i][j] == 0:
+                li[i][j] = u
+                if u == 1:
+                    max1 = max(max1, dfs(li, 2))
+                else:
+                    min1 = min(min1, dfs(li, 1))
+                li[i][j] = 0
+    if u == 1:
+        return max1
+    else:
+        return min1
+
+for i in get_li(content):
+    print(dfs(i, 1))
+'''
